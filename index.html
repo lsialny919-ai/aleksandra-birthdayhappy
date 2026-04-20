@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>С Днём Рождения, Оля! ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f9e7e7 0%, #f5d9e2 40%, #e5d4f0 80%, #d9e8f5 100%);
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      padding: 20px 16px 60px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Блёстки */
+    .glitter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glitter span {
+      position: absolute;
+      display: block;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      box-shadow: 0 0 12px 2px rgba(255, 240, 200, 0.9);
+      animation: glitterFloat 7s infinite ease-in-out;
+    }
+
+    @keyframes glitterFloat {
+      0% { transform: translateY(0) scale(0.8); opacity: 0.4; }
+      50% { transform: translateY(-30px) scale(1.2); opacity: 1; }
+      100% { transform: translateY(0) scale(0.8); opacity: 0.4; }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 5;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ВЕРХНИЙ БЛОК */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: clamp(42px, 12vw, 72px);
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 215, 235, 0.9), 0 0 40px rgba(255, 255, 255, 0.7);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin-bottom: 15px;
+      word-break: break-word;
+    }
+
+    .photo-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      /* Убрали трансформации, оставили только тень */
+      filter: drop-shadow(0 20px 15px rgba(0, 0, 0, 0.1));
+    }
+
+    .birthday-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1.1;
+      object-fit: cover;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      border: 5px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      display: block;
+      background: #f0dde0;
+      /* фото всегда чёткое */
+      image-rendering: auto;
+    }
+
+    .hero-subtitle {
+      margin-top: 22px;
+      font-size: clamp(22px, 6vw, 34px);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      color: #ffffff;
+      text-shadow: 0 0 18px rgba(255, 220, 240, 0.9), 0 0 30px rgba(255, 255, 255, 0.5);
+      border-top: 2px solid rgba(255, 255, 255, 0.5);
+      padding-top: 14px;
+      display: inline-block;
+    }
+
+    /* Конверты */
+    .envelopes-section {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .envelope-card {
+      background: transparent;
+      width: 100%;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .envelope-hint {
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #4a3f4e;
+      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+
+    .envelope {
+      background: #fef3e9;
+      border-radius: 24px 24px 18px 18px;
+      box-shadow: 0 20px 30px -5px rgba(100, 60, 80, 0.2), inset 0 -2px 0 rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid rgba(255, 240, 245, 0.8);
+      overflow: hidden;
+    }
+
+    .envelope:hover {
+      box-shadow: 0 25px 35px -8px rgba(130, 80, 100, 0.25);
+      transform: scale(1.01);
+    }
+
+    .envelope-inner {
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .envelope-front {
+      padding: 30px 25px 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(135deg, #fff6f0, #ffe8e0);
+      border-radius: 24px 24px 18px 18px;
+      position: relative;
+      transition: opacity 0.35s, transform 0.4s;
+    }
+
+    .flap {
+      position: absolute;
+      top: -12px;
+      left: 15%;
+      width: 70%;
+      height: 35px;
+      background: #fdd9c4;
+      border-radius: 0 0 50% 50% / 0 0 100% 100%;
+      box-shadow: 0 6px 8px rgba(0,0,0,0.05), inset 0 2px 4px rgba(255,255,255,0.7);
+      border-bottom: 2px solid #e7bba8;
+      transform: rotate(0deg);
+      transition: transform 0.4s;
+      z-index: 2;
+    }
+
+    .seal {
+      width: 28px;
+      height: 28px;
+      background: #c44b4b;
+      border-radius: 50%;
+      margin: 8px auto 5px;
+      box-shadow: 0 4px 0 #7e2d2d, 0 6px 10px rgba(0,0,0,0.1);
+      border: 2px solid #f3bc9b;
+      position: relative;
+      z-index: 3;
+    }
+
+    .seal::after {
+      content: "❤";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffefc0;
+      font-size: 18px;
+      text-shadow: 0 1px 2px black;
+    }
+
+    .envelope-name {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #7a4b5c;
+      text-shadow: 3px 3px 0 #fce2d4;
+      letter-spacing: 4px;
+      margin: 15px 0 5px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .envelope-subtle {
+      font-size: 1rem;
+      color: #ac7d8e;
+      margin-top: 5px;
+      opacity: 0.8;
+    }
+
+    .letter {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.7s ease-in-out, opacity 0.5s ease, padding 0.3s;
+      background: #fffaf5;
+      border-radius: 0 0 20px 20px;
+      padding: 0 20px;
+    }
+
+    .letter-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px 5px 25px;
+      align-items: center;
+    }
+
+    .letter-text {
+      flex: 2 1 240px;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #3f2e36;
+      background: rgba(255, 240, 235, 0.7);
+      padding: 18px 16px;
+      border-radius: 30px 10px 30px 10px;
+      box-shadow: inset 0 0 0 1px #ffe1d4, 0 6px 12px rgba(190, 130, 130, 0.08);
+      font-family: 'Playfair Display', serif;
+      white-space: pre-line;
+    }
+
+    .letter-image {
+      flex: 1 1 180px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 15px 20px -8px rgba(90, 50, 60, 0.2);
+      border: 3px solid white;
+    }
+
+    .letter-image img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      background: #fadfd6;
+    }
+
+    .envelope.open .envelope-front {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+      opacity: 0;
+    }
+
+    .envelope.open .letter {
+      max-height: 800px;
+      opacity: 1;
+      padding: 5px 20px 10px;
+    }
+
+    /* Блок внизу */
+    .love-section {
+      margin-top: 70px;
+      text-align: center;
+    }
+
+    .love-message {
+      font-size: 2.2rem;
+      font-weight: 400;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      color: #fff9fb;
+      text-shadow: 0 4px 15px rgba(210, 150, 170, 0.8), 0 0 25px rgba(255, 220, 240, 0.9);
+      margin-bottom: 35px;
+      letter-spacing: 1px;
+      word-break: break-word;
+    }
+
+    .angled-photos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px 40px;
+      flex-wrap: wrap;
+    }
+
+    .photo-left, .photo-right {
+      width: 480px;
+      max-width: 60vw;
+      border-radius: 30px 10px 30px 10px;
+      border: 4px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 25px 30px -10px rgba(100, 60, 70, 0.25);
+      transition: transform 0.3s ease;
+      background: #fce4ec;
+    }
+
+    .photo-left {
+      transform: rotate(-4deg);
+    }
+
+    .photo-right {
+      transform: rotate(4deg);
+    }
+
+    .photo-left:hover, .photo-right:hover {
+      transform: rotate(0deg) scale(1.02);
+      box-shadow: 0 30px 35px -8px rgba(120, 70, 80, 0.3);
+    }
+
+    .photo-left img, .photo-right img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      border-radius: 27px 7px 27px 7px;
+    }
+
+    @media (max-width: 500px) {
+      body { padding: 12px 10px 40px; }
+      .envelope-name { font-size: 2.2rem; }
+      .letter-content { flex-direction: column; }
+      .letter-text { width: 100%; }
+      .letter-image { width: 80%; margin: 0 auto; }
+      .love-message { font-size: 1.8rem; }
+      .photo-left, .photo-right { width: 380px; }
+    }
+
+    .footer-note {
+      margin-top: 60px;
+      text-align: center;
+      color: #6a4e5e;
+      font-style: italic;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="glitter" id="glitterContainer"></div>
+
+  <div class="wrapper">
+    <div class="hero">
+      <div class="hero-title">С ДНЁМ<br>РОЖДЕНИЯ!</div>
+      <div class="photo-container">
+        <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ЛОКАЛЬНОЕ ФОТО (чёткое) ⭐ -->
+        <img class="birthday-photo" src="all.jpeg" alt="Праздничное фото">
+      </div>
+      <div class="hero-subtitle">Все тёплые слова внизу</div>
+    </div>
+
+    <!-- 10 КОНВЕРТОВ -->
+    <div class="envelopes-section" id="envelopesContainer"></div>
+    
+    <div class="love-section">
+      <div class="love-message">Мы вас очень любим и ценим!</div>
+      <div class="angled-photos">
+        <div class="photo-left">
+          <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ФОТО (левое) ⭐ -->
+          <img src="mog.jpeg" alt="Фото слева">
+        </div>
+        <div class="photo-right">
+          <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ФОТО (правое) ⭐ -->
+          <img src="omg.jpeg" alt="Фото справа">
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">✨ Нажми на конверт — и улыбнись ✨</div>
+  </div>
+
+  <script>
+    (function(){
+      // ---------- ДАННЫЕ 10 КОНВЕРТОВ (замените фото на свои) ----------
+      const lettersData = [
+        { name: "Оля", text: "Дорогая Александра! От всей души поздравляю Вас с Днём Рождения!🎉Ваш профессионализм, мудрость и умение находить подход к людям, находить выход из любой ситуации вызывают искреннее мое восхищение!  Благодаря Вашему руководству наш коллектив всегда движется вперёд, достигая новых высот!🏆Желаю Вам крепкого здоровья, неиссякаемой энергии и вдохновения! Пусть каждый день приносит радость, а все задуманные планы успешно реализуются! И мы Вам в этом будем всячески помогать.Пусть рядом всегда будут любящие люди, а работа приносит не только достойный доход, но и удовольствие!🌷 Оставайтесь такой же яркой, целеустремлённой и прекрасной!🥰Счастья Вам, благополучия и новых профессиональных достижений!", image: "ol.jpg" },
+        { name: "Алина", text: "Дорогая Александра,поздравляю Вас с днём рождения!🎂 Желаю Вам, чтобы все ваши планы и цели всегда реализовывались, чтобы Вас окружали только позитивные люди. Оставайтесь таким же светлым человеком, помогающим вселять в других уверенность. Я очень благодарна,что именно Вы являетесь нашим руководителем. Вы всегда выслушаете нас и пойдёте навстречу, это очень ценно. Желаю вам побольше счастливых моментов, достижения новых высот и удачи во всех Ваших начинаниях", image: "al.jpg" },
+        { name: "Даша", text: "Дорогая Александра Ивановна! От всего сердца поздравляю Вас с днем рождения! Желаю Вам крепкого здоровья, неиссякаемой энергии, новых профессиональных побед, личного счастья и благополучия. Пусть каждый день приносит радость, а все планы и мечты успешно воплощаются в жизнь!✨", image: "da.jpg" },
+        { name: "Мария", text: "Дорогая Александра!Поздравляю тебя с Днем Рождения!Работать с тобой — одно удовольствие. Спасибо за твою поддержку, отличное чувство юмора и готовность всегда прийти на помощь. Желаю, чтобы все мечты сбывались, настроение было солнечным, а каждый день приносил только приятные сюрпризы!", image: "ma.jpg" },
+        { name: "Алина", text: "Александра, поздравляю вас с днем рождения 🎉  Вы очень добрый и грамотный руководитель, Вы всегда помогаете нам , спасибо большое вам за это. Хочу пожелать Вас в этот день : выполнения всех целей, вдохновения и душевных сил, справедливых и верных решений, положительного результата во всех начинаниях. Пусть удача и успех всегда следуют за вами. Будьте счастливы!", image: "na.jpg" },
+        { name: "Айгюль", text: "Дорогая Александра Ивановна!!!От всего сердца поздравляю Вас с днем рождения! Пусть каждый новый день приносит множество ярких впечатлений, а любимая работа доставляет радость. Желаю крепкого здоровья, неиссякаемой энергии для воплощения смелых планов и достижения высоких целей. Пусть дом наполняется теплом и уютом, а близкие люди окружают любовью, заботой и пониманием. Оставайтесь такой же прекрасной, доброй, красивой, активной, вдохновляющей и успешной! 💐 😘 ❤️ ", image: "ga.jpg" },
+        { name: "Маргарита", text: "От всего сердца поздравляю с днём рождения! Желаю, чтобы каждый новый день приносил радость, вдохновение и приятные сюрпризы. Пусть рядом будут верные друзья, любящие близкие, а в душе — гармония и лёгкость. Крепкого здоровья, неиссякаемого оптимизма и исполнения самых заветных желаний!", image: "rit.jpg" },
+        { name: "Татьяна", text: "Дорогая, Александра ❤Поздравляю Вас с днём рождения!!!Желаю побольше улыбок, счастья и благополучия!!! Вы самый замечательный руководитель:умная, понимающая и открытая)))", image: "ta.jpg" },
+        { name: "Настя", text: "Уважаемая,Александра!Поздравляю Вас с Днём рождения!!!Пусть Ваш напор и целеустремленность неизменно ведут вас к победам!Оставайтесь верной себе и своим мечтам,творите!Пусть ваша красота не меркнет,а оптимизм не иссякает!Желаю вам внутреннего благополучия и процветания во всех сферах жизни!", image: "pop.jpg" },
+        { name: "Наталья", text: "Дорогая Александра! Желаю, чтобы каждый новый день приносил радость, вдохновение и приятные сюрпризы. Пусть рядом будут любящие люди, в душе — гармония, а в сердце — счастье. 💖 ", image: "za.jpg" }
+      ];
+
+      // Блёстки
+      const glitterDiv = document.getElementById('glitterContainer');
+      for (let i = 0; i < 50; i++) {
+        const span = document.createElement('span');
+        const size = 4 + Math.floor(Math.random() * 10);
+        span.style.width = size + 'px';
+        span.style.height = size + 'px';
+        span.style.left = Math.random() * 100 + '%';
+        span.style.top = Math.random() * 100 + '%';
+        span.style.animationDelay = Math.random() * 6 + 's';
+        span.style.background = `rgba(255, 255, 255, ${0.5 + Math.random() * 0.5})`;
+        span.style.boxShadow = `0 0 ${8+size}px ${2+size}px rgba(255, 235, 200, 0.7)`;
+        glitterDiv.appendChild(span);
+      }
+
+      // Рендер конвертов
+      const container = document.getElementById('envelopesContainer');
+      lettersData.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'envelope-card';
+
+        const hint = document.createElement('div');
+        hint.className = 'envelope-hint';
+        hint.textContent = '✨ нажми на меня и улыбнись ✨';
+        
+        const envelopeDiv = document.createElement('div');
+        envelopeDiv.className = 'envelope';
+        
+        const inner = document.createElement('div');
+        inner.className = 'envelope-inner';
+        
+        const front = document.createElement('div');
+        front.className = 'envelope-front';
+        front.innerHTML = `
+          <div class="flap"></div>
+          <div class="seal"></div>
+          <div class="envelope-name">${item.name}</div>
+          <div class="envelope-subtle">💌 от всего сердца</div>
+        `;
+        
+        const letter = document.createElement('div');
+        letter.className = 'letter';
+        letter.innerHTML = `
+          <div class="letter-content">
+            <div class="letter-text">${item.text.replace(/\n/g, '<br>')}</div>
+            <div class="letter-image">
+              <img src="${item.image}" alt="Фото для Оли" loading="lazy">
+            </div>
+          </div>
+        `;
+        
+        inner.appendChild(front);
+        inner.appendChild(letter);
+        envelopeDiv.appendChild(inner);
+        
+        envelopeDiv.addEventListener('click', function() {
+          if (!this.classList.contains('open')) {
+            this.classList.add('open');
+          }
+        });
+        
+        card.appendChild(hint);
+        card.appendChild(envelopeDiv);
+        container.appendChild(card);
+      });
+    })();
+  </script>
+</body>
+</html>
