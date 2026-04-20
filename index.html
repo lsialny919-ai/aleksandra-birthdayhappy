@@ -84,7 +84,6 @@
       width: 100%;
       max-width: 500px;
       margin: 0 auto;
-      /* Убрали трансформации, оставили только тень */
       filter: drop-shadow(0 20px 15px rgba(0, 0, 0, 0.1));
     }
 
@@ -97,7 +96,6 @@
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
       display: block;
       background: #f0dde0;
-      /* фото всегда чёткое */
       image-rendering: auto;
     }
 
@@ -264,11 +262,11 @@
       border: 3px solid white;
     }
 
+    /* 👇 ГЛАВНОЕ ИСПРАВЛЕНИЕ: фото всегда полностью, без обрезки */
     .letter-image img {
       width: 100%;
       height: auto;
-      aspect-ratio: 1/1;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
       background: #fadfd6;
     }
@@ -285,7 +283,7 @@
     }
 
     .envelope.open .letter {
-      max-height: 2000px;
+      max-height: 2000px;   /* достаточно для любого письма */
       opacity: 1;
       padding: 5px 20px 10px;
     }
@@ -348,33 +346,36 @@
       border-radius: 27px 7px 27px 7px;
     }
 
+    /* 📱 Мобильная версия */
     @media (max-width: 500px) {
-  body { padding: 12px 10px 40px; }
-  .envelope-name { font-size: 2.2rem; }
-  .letter-content {
-    flex-direction: column;
-    gap: 15px;
-  }
-  .letter-text {
-    width: 100%;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-  .letter-image {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-  .letter-image img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    background: #fadfd6;
-  }
-  .love-message { font-size: 1.8rem; }
-  .photo-left, .photo-right { width: 160px; }
-}
+      body { padding: 12px 10px 40px; }
+      .envelope-name { font-size: 2.2rem; }
+      .letter-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .letter-text {
+        width: 100%;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+      .letter-image {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      /* гарантируем, что на мобильных фото тоже целиком */
+      .letter-image img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+        aspect-ratio: auto !important;
+        display: block;
+        background: #fadfd6;
+      }
+      .love-message { font-size: 1.8rem; }
+      .photo-left, .photo-right { width: 160px; }
+    }
 
     .footer-note {
       margin-top: 60px;
@@ -392,9 +393,8 @@
     <div class="hero">
       <div class="hero-title">С ДНЁМ<br>РОЖДЕНИЯ!</div>
       <div class="photo-container">
-        <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ЛОКАЛЬНОЕ ФОТО (чёткое) ⭐ -->
-        <img class="birthday-photo" src="all.jpeg" alt="Праздничное фото"
-          loading="eager" fetchpriority="high">
+        <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ЛОКАЛЬНОЕ ФОТО ⭐ -->
+        <img class="birthday-photo" src="all.jpeg" alt="Праздничное фото" loading="eager" fetchpriority="high">
       </div>
       <div class="hero-subtitle">Все тёплые слова внизу</div>
     </div>
@@ -406,14 +406,10 @@
       <div class="love-message">Мы вас очень любим и ценим!</div>
       <div class="angled-photos">
         <div class="photo-left">
-          <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ФОТО (левое) ⭐ -->
-          <img src="mog.jpeg" alt="Фото слева"
-            loading="lazy">
+          <img src="mog.jpeg" alt="Фото слева" loading="lazy">
         </div>
         <div class="photo-right">
-          <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ФОТО (правое) ⭐ -->
-          <img src="omg.jpeg" alt="Фото справа"
-            loading="lazy">
+          <img src="omg.jpeg" alt="Фото справа" loading="lazy">
         </div>
       </div>
     </div>
