@@ -349,14 +349,29 @@
     }
 
     @media (max-width: 500px) {
-      body { padding: 12px 10px 40px; }
-      .envelope-name { font-size: 2.2rem; }
-      .letter-content { flex-direction: column; }
-      .letter-text { width: 100%; }
-      .letter-image { width: 80%; margin: 0 auto; }
-      .love-message { font-size: 1.8rem; }
-      .photo-left, .photo-right { width: 380px; }
-    }
+  body { padding: 12px 10px 40px; }
+  .envelope-name { font-size: 2.2rem; }
+  .letter-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .letter-text {
+    width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .letter-image {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  .letter-image img {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+  .love-message { font-size: 1.8rem; }
+  .photo-left, .photo-right { width: 160px; }
+}
 
     .footer-note {
       margin-top: 60px;
@@ -375,7 +390,8 @@
       <div class="hero-title">С ДНЁМ<br>РОЖДЕНИЯ!</div>
       <div class="photo-container">
         <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ЛОКАЛЬНОЕ ФОТО (чёткое) ⭐ -->
-        <img class="birthday-photo" src="all.jpeg" alt="Праздничное фото">
+        <img class="birthday-photo" src="all.jpeg" alt="Праздничное фото"
+          loading="eager" fetchpriority="high">
       </div>
       <div class="hero-subtitle">Все тёплые слова внизу</div>
     </div>
@@ -388,11 +404,13 @@
       <div class="angled-photos">
         <div class="photo-left">
           <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ФОТО (левое) ⭐ -->
-          <img src="mog.jpeg" alt="Фото слева">
+          <img src="mog.jpeg" alt="Фото слева"
+            loading="lazy">
         </div>
         <div class="photo-right">
           <!-- ⭐ ЗАМЕНИТЕ НА СВОЁ ФОТО (правое) ⭐ -->
-          <img src="omg.jpeg" alt="Фото справа">
+          <img src="omg.jpeg" alt="Фото справа"
+            loading="lazy">
         </div>
       </div>
     </div>
