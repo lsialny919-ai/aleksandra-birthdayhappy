@@ -238,7 +238,7 @@
       flex-wrap: wrap;
       gap: 15px;
       padding: 20px 5px 25px;
-      align-items: center;
+      align-items: flex-start;  /* текст приподнят к верху */
     }
 
     .letter-text {
@@ -261,15 +261,18 @@
       overflow: hidden;
       box-shadow: 0 15px 20px -8px rgba(90, 50, 60, 0.2);
       border: 3px solid white;
+      aspect-ratio: 1/1;   /* жёсткий квадрат */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fadfd6;
     }
 
-    /* Фото всегда полностью, без обрезки */
     .letter-image img {
       width: 100%;
-      height: auto;
-      object-fit: contain;
+      height: 100%;
+      object-fit: contain;   /* фото полностью внутри квадрата */
       display: block;
-      background: #fadfd6;
     }
 
     .envelope.open .envelope-front {
@@ -347,39 +350,34 @@
       border-radius: 27px 7px 27px 7px;
     }
 
-    /* 📱 Адаптация для мобильных: текст справа, фото слева */
+    /* 📱 Мобильная версия — фото слева, текст справа, квадратное фото */
     @media (max-width: 500px) {
       body { padding: 12px 10px 40px; }
       .envelope-name { font-size: 2.2rem; }
 
-      /* Горизонтальное расположение */
       .letter-content {
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 10px;
-        padding: 15px 0 20px;
-      }
-
-      .letter-text {
-        flex: 1.4;
-        font-size: 0.85rem;
-        line-height: 1.4;
-        padding: 12px 10px;
-        order: 2;  /* текст справа */
+        padding: 12px 0 15px;
+        align-items: flex-start;
       }
 
       .letter-image {
-        flex: 1;
-        max-width: 120px;
-        order: 1;  /* фото слева */
-        margin: 0;
+        flex: 0 0 120px;        /* фиксированная ширина квадрата */
+        width: 120px;
+        height: 120px;
+        margin-right: 0;
+        order: 1;
       }
 
-      .letter-image img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        aspect-ratio: auto;
+      .letter-text {
+        flex: 1;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        padding: 10px 10px;
+        order: 2;
+        align-self: flex-start;   /* текст прилипает к верху */
       }
 
       .love-message { font-size: 1.8rem; }
@@ -488,7 +486,7 @@
           <div class="letter-content">
             <div class="letter-text">${item.text.replace(/\n/g, '<br>')}</div>
             <div class="letter-image">
-              <img src="${item.image}" alt="Фото для Оли" loading="lazy">
+              <img src="${item.image}" alt="Фото" loading="lazy">
             </div>
           </div>
         `;
