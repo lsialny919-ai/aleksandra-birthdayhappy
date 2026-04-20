@@ -236,33 +236,34 @@
     .letter-content {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
       padding: 20px 5px 25px;
       align-items: center;
     }
 
     .letter-text {
-      flex: 2 1 240px;
-      font-size: 1.15rem;
-      line-height: 1.6;
+      flex: 2 1 200px;
+      font-size: 1.1rem;
+      line-height: 1.5;
       color: #3f2e36;
       background: rgba(255, 240, 235, 0.7);
-      padding: 18px 16px;
+      padding: 15px 14px;
       border-radius: 30px 10px 30px 10px;
       box-shadow: inset 0 0 0 1px #ffe1d4, 0 6px 12px rgba(190, 130, 130, 0.08);
       font-family: 'Playfair Display', serif;
       white-space: pre-line;
+      word-break: break-word;
     }
 
     .letter-image {
-      flex: 1 1 180px;
+      flex: 1 1 150px;
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 15px 20px -8px rgba(90, 50, 60, 0.2);
       border: 3px solid white;
     }
 
-    /* 👇 ГЛАВНОЕ ИСПРАВЛЕНИЕ: фото всегда полностью, без обрезки */
+    /* Фото всегда полностью, без обрезки */
     .letter-image img {
       width: 100%;
       height: auto;
@@ -283,7 +284,7 @@
     }
 
     .envelope.open .letter {
-      max-height: 2000px;   /* достаточно для любого письма */
+      max-height: 2000px;
       opacity: 1;
       padding: 5px 20px 10px;
     }
@@ -346,33 +347,41 @@
       border-radius: 27px 7px 27px 7px;
     }
 
-    /* 📱 Мобильная версия */
+    /* 📱 Адаптация для мобильных: текст справа, фото слева */
     @media (max-width: 500px) {
       body { padding: 12px 10px 40px; }
       .envelope-name { font-size: 2.2rem; }
+
+      /* Горизонтальное расположение */
       .letter-content {
-        flex-direction: column;
-        gap: 15px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 15px 0 20px;
       }
+
       .letter-text {
-        width: 100%;
-        word-break: break-word;
-        overflow-wrap: break-word;
+        flex: 1.4;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        padding: 12px 10px;
+        order: 2;  /* текст справа */
       }
+
       .letter-image {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
+        flex: 1;
+        max-width: 120px;
+        order: 1;  /* фото слева */
+        margin: 0;
       }
-      /* гарантируем, что на мобильных фото тоже целиком */
+
       .letter-image img {
-        width: 100% !important;
-        height: auto !important;
-        object-fit: contain !important;
-        aspect-ratio: auto !important;
-        display: block;
-        background: #fadfd6;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        aspect-ratio: auto;
       }
+
       .love-message { font-size: 1.8rem; }
       .photo-left, .photo-right { width: 160px; }
     }
